@@ -597,6 +597,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"6rimH":[function(require,module,exports,__globalThis) {
 var _redux = require("redux");
+const postElem = document.querySelector(".post");
 // console.log(createStore);
 // console.dir(createStore);
 const initialState = {
@@ -644,12 +645,14 @@ function reducer(state = initialState, action) {
             return state;
     }
 }
-const store = (0, _redux.createStore)(reducer);
+const store = (0, _redux.createStore)(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.());
 console.log(store);
 console.log(store.getState());
 store.subscribe(()=>{
     console.log(store.getState());
+    postElem.innerText = store.getState().post;
 });
+postElem.innerText = store.getState().post;
 store.dispatch({
     type: INCREMENT
 });
@@ -665,6 +668,16 @@ store.dispatch({
 store.dispatch({
     type: DECREASE_BY,
     payload: 7
+});
+setTimeout(()=>{
+    store.dispatch({
+        type: DECREMENT
+    });
+}, 5000);
+postElem.addEventListener('click', ()=>{
+    store.dispatch({
+        type: INCREMENT
+    });
 });
 
 },{"redux":"anWnS"}],"anWnS":[function(require,module,exports,__globalThis) {

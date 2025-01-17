@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-
+const postElem = document.querySelector(".post");
 // console.log(createStore);
 // console.dir(createStore);
 
@@ -40,14 +40,17 @@ function reducer(state = initialState, action) {
   }
 }
 
-const store = createStore(reducer);
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.());
 
 console.log(store);
 console.log(store.getState());
 
 store.subscribe(() => {
   console.log(store.getState());
+  postElem.innerText = store.getState().post;
 });
+
+postElem.innerText = store.getState().post;
 
 store.dispatch({ type: INCREMENT });
 // console.log(store.getState());
@@ -55,3 +58,11 @@ store.dispatch({ type: DECREMENT });
 // console.log(store.getState());
 store.dispatch({ type: INCREASE_BY, payload: 10 });
 store.dispatch({ type: DECREASE_BY, payload: 7 });
+
+setTimeout(() => {
+  store.dispatch({ type: DECREMENT });
+}, 5000);
+
+postElem.addEventListener('click', () => {
+  store.dispatch({ type: INCREMENT });
+})
