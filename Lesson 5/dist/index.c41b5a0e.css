@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  font-family: Nunito, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: none;
+}
+
+button {
+  padding: 8px;
+  font-family: inherit;
+}
+
+.ellipsiss {
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+/*# sourceMappingURL=index.c41b5a0e.css.map */
