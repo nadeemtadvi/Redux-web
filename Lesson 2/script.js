@@ -1,8 +1,7 @@
 import { createStore } from "redux";
 import { myCreatstore } from "./myRedux";
 const postElem = document.querySelector(".post");
-// console.log(createStore);
-// console.dir(createStore);
+
 
 const initialState = {
   post: 0,
@@ -16,16 +15,7 @@ const INCREASE_BY = "post/incrementBy";
 const DECREASE_BY = "post/decrementBy";
 
 function reducer(state = initialState, action) {
-  // if (action.type === INCREMENT) {
-  //   return { ...state, post: state.post + 1 };
-  // } else if (action.type === DECREMENT) {
-  //   return { ...state, post: state.post - 1 };
-  // } else if (action.type === INCREASE_BY) {
-  //   return { ...state, post: state.post + action.payload };
-  // } else if (action.type === DECREASE_BY) {
-  //   return { ...state, post: state.post - action.payload };
-  // }
-  // return state;
+ 
 
   switch (action.type) {
     case INCREMENT:
