@@ -7,6 +7,14 @@ Lesson 2/node_modules
 /.pnp
 .pnp.js
 
+.parcel-cache
+Lesson 1/reduxinhtml/.parcel-cache
+Lesson 2/.parcel-cache
+Lesson 3/.parcel-cache
+Lesson 4/.parcel-cache
+Lesson 5/.parcel-cache
+
+
 # testing
 /coverage
 
