@@ -1,33 +1,10 @@
 import React from "react";
 import Cartitem from "../components/Cartitem";
+import { useSelector } from "react-redux";
 
 const Cartpage = () => {
-  const cartItems = [
-    {
-      id: 1,
-      title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-      imageUrl: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-      quantity: 1,
-      rating: 3.9,
-      price: 109.95,
-    },
-    {
-      id: 2,
-      title: "Mens Cotton Jacket",
-      imageUrl: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
-      quantity: 1,
-      rating: 4.7,
-      price: 55.99,
-    },
-    {
-      id: 3,
-      title: "Mens Casual Slim Fit",
-      imageUrl: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
-      quantity: 1,
-      rating: 2.1,
-      price: 15.99,
-    },
-  ];
+  const cartItems = useSelector((state) => state.cardItems)
+ 
   return (
     <div className="cart-container max-w-7xl mx-auto p-4">
       <h2 className="text-center text-2xl font-bold my-8">
@@ -40,9 +17,10 @@ const Cartpage = () => {
           <div className="quantity text-center">Quantity</div>
           <div className="total text-end">Total</div>
         </div>
-        {cartItems.map(({ id, title, rating, price, imageUrl, quantity }) => (
+        {cartItems.map(({ productId, title, rating, price, imageUrl, quantity }) => (
           <Cartitem
-            key={id}
+            key={productId}
+            productId={productId}
             title={title}
             price={price}
             quantity={quantity}
@@ -54,7 +32,11 @@ const Cartpage = () => {
           <div></div>
           <div></div>
           <div></div>
-          <div className="total text-right">$500</div>
+          <div className="total text-right">${cartItems.reduce(
+              (accumulator, currentItem) =>
+                accumulator + currentItem.quantity * currentItem.price,
+              0
+            )}</div>
         </div>
       </div>
     </div>

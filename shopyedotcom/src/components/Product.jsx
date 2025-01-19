@@ -1,4 +1,8 @@
-export default function Product({ title, rating, price, imageUrl }) {
+import { useSelector, useDispatch } from "react-redux";
+import { cartAddItem } from "../store/cartReducer";
+
+export default function Product({ productId, title, rating, price, imageUrl }) {
+  const dispatch = useDispatch()
   return (
     <div className="product bg-white border border-gray-200 rounded-lg p-4 overflow-hidden">
       <div className="flex flex-col h-full justify-between">
@@ -23,7 +27,7 @@ export default function Product({ title, rating, price, imageUrl }) {
             </p>
           </div>
           <div className="cta-container p-2 flex justify-between">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            <button onClick={() => dispatch(cartAddItem({ productId, title, rating, price, imageUrl }))} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
               Add to Cart
             </button>
             <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">

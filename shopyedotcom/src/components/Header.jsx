@@ -1,7 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
 
 const Header = () => {
+  const cartItems = useSelector((state)=> state.cardItems)
+  console.log('header',cartItems);
+  
   return (
     <header className="bg-neutral-900 text-white p-4 flex justify-between items-center shadow-md">
       <h1 className="text-xl font-bold">
@@ -24,7 +28,10 @@ const Header = () => {
             />
           </svg>
           <span className="text-sm font-semibold bg-white text-blue-500 rounded-full px-2 py-1">
-            3
+          {cartItems.reduce(
+              (accumulator, currentItem) => accumulator + currentItem.quantity,
+              0
+            )}
           </span>
         </Link>
       </div>

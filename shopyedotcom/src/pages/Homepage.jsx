@@ -13,6 +13,7 @@ const Homepage = () => {
           {product.map(({ id, title, price, rating, image }) => (
             <Product
               key={id}
+              productId={id}
               title={title}
               price={price}
               rating={rating.rate}
