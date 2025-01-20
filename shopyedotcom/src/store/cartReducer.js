@@ -1,73 +1,38 @@
-const CART_ADD_ITEM = "cart/addItem";
-const CART_REMOVE_ITEM = "cart/removeItem";
-const CART_ADD_ITEM_QUANTITY = "cart/addItemQuantity";
-const CART_REMOVE_ITEM_QUANTITY = "cart/removeItemQuantity";
+import { createSlice } from "@reduxjs/toolkit";
 
-export function cartAddItem(productData) {
-  return {
-    type: CART_ADD_ITEM,
-    payload: productData,
-  };
-}
-
-export function cartRemoveItem(productId) {
-  return {
-    type: CART_REMOVE_ITEM,
-    payload: { productId },
-  };
-}
-export function cartRemoveItemQuantity(productId) {
-  return {
-    type: CART_REMOVE_ITEM_QUANTITY,
-    payload: { productId },
-  };
-}
-export function cartaddItemQuantity(productId) {
-  return {
-    type: CART_ADD_ITEM_QUANTITY,
-    payload: { productId },
-  };
-}
-
-export default function cartReducer(state = [], action) {
-  switch (action.type) {
-    case CART_ADD_ITEM:
-      const existing = state.find(
-        (item) => item.productId === action.payload.productId
-      )
-      if (existing) {
-        return state.map((item) => {
-          if (item.productId === existing.productId) {
-            return { ...item, quantity: item.quantity + 1 };
-          }
-          return item;
-        });
+const findItemIndex = (state, action) =>
+  state.findIndex((item) => item.productId === action.payload.productId);
+const slice = createSlice({
+  name: "cart",
+  initialState: [],
+  reducers: {
+    cartAddItem(state, action) {
+      const existingIndex = findItemIndex(state, action);
+      if (existingIndex !== -1) state[existingIndex].quantity += 1;
+      else state.push({ ...action.payload, quantity: 1 });
+    },
+    cartRemoveItem(state, action) {
+      const existingIndex = findItemIndex(state, action);
+      state.splice(existingIndex, 1);
+    },
+    cartaddItemQuantity(state, action) {
+      const existingIndex = findItemIndex(state, action);
+      state[existingIndex].quantity += 1;
+    },
+    cartRemoveItemQuantity(state, action) {
+      const existingIndex = findItemIndex(state, action);
+      state[existingIndex].quantity -= 1;
+      if (state[existingIndex].quantity === 0) {
+        state.splice(existingIndex, 1);
       }
+    },
+  },
+});
 
-      return [...state,{ ...action.payload, quantity: 1} ];
-    case CART_REMOVE_ITEM:
-      return state.filter(
-        (item) => item.productId !== action.payload.productId
-      );
-    case CART_ADD_ITEM_QUANTITY:
-      return state.map((item) => {
-        if (item.productId === action.payload.productId) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      });
-
-    case CART_REMOVE_ITEM_QUANTITY:
-      return state
-        .map((item) => {
-          if (item.productId === action.payload.productId) {
-            return { ...item, quantity: item.quantity - 1 };
-          }
-          return item;
-        })
-        .filter((item) => item.quantity > 0);
-
-    default:
-      return state;
-  }
-}
+export const {
+  cartAddItem,
+  cartRemoveItem,
+  cartRemoveItemQuantity,
+  cartaddItemQuantity,
+} = slice.actions;
+export default slice.reducer;

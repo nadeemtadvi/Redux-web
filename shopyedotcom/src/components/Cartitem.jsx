@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import {
   cartaddItemQuantity,
+  cartRemoveItem,
   cartRemoveItemQuantity,
 } from "../store/cartReducer";
 
@@ -21,20 +22,20 @@ const Cartitem = ({ productId, title, rating, price, imageUrl, quantity }) => {
       </div>
       <div className="item-quantity flex items-center justify-center">
         <button
-          onClick={() => dispatch(cartRemoveItemQuantity(productId))}
+          onClick={() => dispatch(cartRemoveItemQuantity({productId}))}
           className="px-2 py-1 border border-gray-300 rounded"
         >
           -
         </button>
         <span className="mx-2">{quantity}</span>
         <button
-          onClick={() => dispatch(cartaddItemQuantity(productId))}
+          onClick={() => dispatch(cartaddItemQuantity({productId}))}
           className="px-2 py-1 border border-gray-300 rounded"
         >
           +
         </button>
         <button
-          onClick={() => dispatch(cartRemoveItemQuantity(productId))}
+          onClick={() => dispatch(cartRemoveItem({productId}))}
           className="ml-2 px-2 py-1 border border-gray-300 rounded"
         >
           Remove
