@@ -1,20 +1,20 @@
 export function myCreatstore(reducer) {
-    let state
-    const listeners = []
+  let state;
+  const listeners = [];
   const store = {
     getState() {
-        return state
+      return state;
     },
     dispatch(action) {
-       state = reducer(state, action)
-       listeners.forEach((listener) => {
-        listener()
-       })
+      state = reducer(state, action);
+      listeners.forEach((listener) => {
+        listener();
+      });
     },
     subscribe(listener) {
-listeners.push(listener)
+      listeners.push(listener);
     },
-};
-store.dispatch({type : '@@INIT'})
+  };
+  store.dispatch({ type: "@@INIT" });
   return store;
 }
