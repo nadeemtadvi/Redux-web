@@ -1,11 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
+import { updateproduct } from "../store/productReducer";
+import { productList } from "../store/productList";
 
 const Header = () => {
-  const cartItems = useSelector((state)=> state.cardItems)
-  console.log('header',cartItems);
-  
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cardItems);
+  console.log("header", cartItems);
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products").then((res) =>
+      res.json().then((data) => {
+        dispatch(updateproduct(data));
+      })
+    );
+  }, []);
+
   return (
     <header className="bg-neutral-900 text-white p-4 flex justify-between items-center shadow-md">
       <h1 className="text-xl font-bold">
@@ -28,7 +38,7 @@ const Header = () => {
             />
           </svg>
           <span className="text-sm font-semibold bg-white text-blue-500 rounded-full px-2 py-1">
-          {cartItems.reduce(
+            {cartItems.reduce(
               (accumulator, currentItem) => accumulator + currentItem.quantity,
               0
             )}
